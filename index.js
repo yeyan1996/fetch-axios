@@ -1,32 +1,38 @@
-import MyFetch from "./MyFetch";
+const controller = new AbortController();
+const signal = controller.signal;
+let button = document.querySelector("button");
+button.onclick = function () {
+    controller.abort()
+};
 
-let myFetch =  MyFetch.create({
-    baseURL:"http://localhost:3000",
-    headers: {
-        "X-Requested-With": "XMLHttpRequest"
-    }
+
+const fetchAxios = FetchAxios.create({
+    baseURL: "http://localhost:3000",
+    headers: new Headers({"content-type": "application/json"}),
+    timeout: 5000
 })
 
 
-myFetch.interceptors.request.use(config =>{
-    console.log('config',config)
+fetchAxios.interceptors.request.use(async config => {
+    console.log(config)
     return config
 })
 
-myFetch.interceptors.response.use(async response =>{
-    return  response
-},err =>{
-    console.log(err)
+fetchAxios.interceptors.response.use(async response => {
+    // 响应成功拦截
+    return response
+}, err => {
+    // 响应失败拦截
     return Promise.reject(err)
 })
 
+let promise = fetchAxios({
+    url: '/delay',
+    method: "post",
+    body: {a: 1},
+    signal,
+})
 
-
-;(async () => {
-    let res = await myFetch({
-        url:'/',
-        method:"post",
-        // dataType:"text"
-    })
-    console.log('res',res)
-})()
+promise
+    .then(res => console.log(res))
+    .catch(err => console.log(err))

@@ -1,4 +1,4 @@
-export default class InterceptorManager{
+ class InterceptorManager{
     constructor() {
         this.handlerList = []
     }

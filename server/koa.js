@@ -12,12 +12,12 @@ app.use(bodyParser())
 app.use(async ctx=>{
     console.log(ctx.url)
     switch (ctx.url) {
-        case '/delay':
+        case '/timeout':
             await new Promise((resolve,reject)=>{
                 setTimeout(() => {
                     resolve()
-                }, 4000)
-                ctx.body = 123
+                }, 6000)
+                ctx.body = 'never'
             })
             break;
         case '/json':
@@ -27,7 +27,7 @@ app.use(async ctx=>{
             ctx.throw(400)
             break;
         case  '/text':
-            ctx.body = "it is text"
+            ctx.body = "this is text"
             break
         default:
             ctx.body = {a:1}

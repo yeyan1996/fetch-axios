@@ -27,7 +27,7 @@ fetchAxios.interceptors.response.use(async response => {
 })
 
 let promise = fetchAxios({
-    url: '/delay',
+    url: '/timeout',
     method: "post",
     body: {a: 1},
     signal,
@@ -35,4 +35,16 @@ let promise = fetchAxios({
 
 promise
     .then(res => console.log(res))
-    .catch(err => console.log(err))
+    .catch(err => console.log(`err:${err}`))
+
+let promise2 = fetchAxios({
+    url: '/text',
+    method: "get",
+    responseType:"text",
+    signal,
+})
+
+promise2
+    .then(res => console.log(res))
+    .catch(err => console.log(`err:${err}`))
+

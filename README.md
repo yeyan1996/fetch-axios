@@ -1,5 +1,5 @@
 # fetch-axios
-一个基于 fetch 的 axios
+一个基于 fetch 请求库
 
 ## 创建实例
 ```javascript
@@ -35,6 +35,6 @@ const fetchAxios = FetchAxios.create({
     // `credentials` 表示跨域请求时是否需要使用凭证，fetch 请求默认不会携带跨域 cookie
     credentials: 'include',
     // `signal` 为原生的取消信号，通过 (new AbortController()).abort() 取消 fetch 请求
-    signal:(new AbortController()).signal 
+    signal:(new AbortController()).signal
 }
 ```
